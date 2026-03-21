@@ -18,6 +18,8 @@ import {
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
 import { useWalletStore } from "../../src/stores/wallet-store";
 import { FavoriteButton } from '../../src/components/FavouriteButton';
+import { ConnectButton } from '../../src/components/ConnectButton';
+import { useWallet } from '../../src/hooks/useWallet';
 
 
 
@@ -107,6 +109,7 @@ export default function WalletScreen() {
     const searchHistory = useWalletStore((s) => s.searchHistory);
     const isDevnet = useWalletStore((s) => s.isDevnet);
     const toggleNetwork = useWalletStore((s) => s.toggleNetwork);
+    const wallet = useWallet();
 
     // Use the correct RPC based on network toggle
     const RPC = isDevnet
@@ -241,6 +244,16 @@ export default function WalletScreen() {
             <Text style={s.networkText}>{isDevnet ? "Devnet" : "Mainnet"}</Text>
           </TouchableOpacity>
         </View>
+        <View style={s.header}>
+        <Text style={s.title}>◎ SolScan</Text>
+        <ConnectButton
+          connected={wallet.connected}
+          connecting={wallet.connecting}
+          publicKey={wallet.publicKey?.toBase58() ?? null}
+          onConnect={wallet.connect}
+          onDisconnect={wallet.disconnect}
+        />
+      </View>
 
 
                 {/* Input */}
