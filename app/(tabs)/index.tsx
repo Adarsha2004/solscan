@@ -13,6 +13,7 @@ import {
     Alert,
     Linking,
     Platform,
+    KeyboardAvoidingView,
 } from 'react-native';
 
 import { SafeAreaView, SafeAreaProvider } from 'react-native-safe-area-context';
@@ -20,6 +21,7 @@ import { useWalletStore } from "../../src/stores/wallet-store";
 import { FavoriteButton } from '../../src/components/FavouriteButton';
 import { ConnectButton } from '../../src/components/ConnectButton';
 import { useWallet } from '../../src/hooks/useWallet';
+import { Ionicons } from '@expo/vector-icons';
 
 
 
@@ -228,34 +230,32 @@ export default function WalletScreen() {
 
 
     return (
-        <SafeAreaView style={s.safe}>
-            <StatusBar style="light" />
-            <ScrollView style={s.scroll}>
-
-
+        <SafeAreaView style={s.safe} edges={["top"]}>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                style={{ flex: 1 }}
+            >
+                <ScrollView style={s.scroll}>
                 {/* Header */}
                 <View style={s.header}>
-          <View>
-            <Text style={s.title}>SolScan</Text>
-            <Text style={s.subtitle}>Explore any Solana wallet</Text>
-          </View>
-          <TouchableOpacity style={s.networkToggle} onPress={toggleNetwork}>
-            <View style={[s.networkDot, isDevnet && s.networkDotDevnet]} />
-            <Text style={s.networkText}>{isDevnet ? "Devnet" : "Mainnet"}</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={s.header}>
-        <Text style={s.title}>◎ SolScan</Text>
-        <ConnectButton
-          connected={wallet.connected}
-          connecting={wallet.connecting}
-          publicKey={wallet.publicKey?.toBase58() ?? null}
-          onConnect={wallet.connect}
-          onDisconnect={wallet.disconnect}
-        />
-      </View>
-
-
+                    <View>
+                        <Text style={s.title}>◎ SolScan</Text>
+                        <Text style={s.subtitle}>Explore any Solana wallet</Text>
+                    </View>
+                    <View style={{ alignItems: "flex-end", gap: 8 }}>
+                        <TouchableOpacity style={s.networkToggle} onPress={toggleNetwork}>
+                            <View style={[s.networkDot, isDevnet && s.networkDotDevnet]} />
+                            <Text style={s.networkText}>{isDevnet ? "Devnet" : "Mainnet"}</Text>
+                        </TouchableOpacity>
+                        <ConnectButton
+                            connected={wallet.connected}
+                            connecting={wallet.connecting}
+                            publicKey={wallet.publicKey?.toBase58() ?? null}
+                            onConnect={wallet.connect}
+                            onDisconnect={wallet.disconnect}
+                        />
+                    </View>
+                </View>
                 {/* Input */}
                 <View style={s.inputContainer}>
                     <TextInput
@@ -268,8 +268,6 @@ export default function WalletScreen() {
                         autoCorrect={false}
                     />
                 </View>
-
-
                 {/* Buttons */}
                 <View style={s.btnRow}>
                     <TouchableOpacity
@@ -306,10 +304,8 @@ export default function WalletScreen() {
                         ))}
                     </View>
                 )}
-
-
                 {/* Balance */}
-                {balance && (
+                {balance !== null && (
                     <View style={s.card}>
                         <View style={s.favoriteWrapper}>
               <FavoriteButton address={address.trim()} />
@@ -320,10 +316,17 @@ export default function WalletScreen() {
                             <Text style={s.sol}>SOL</Text>
                         </View>
                         <Text style={s.addr}>{short(address.trim(), 6)}</Text>
+                        {wallet.connected && (
+  <TouchableOpacity
+    style={s.sendNav}
+    onPress={() => router.push("/send")}
+  >
+    <Ionicons name="paper-plane" size={20} color="#0a0a1a" />
+    <Text style={s.sendNavText}>Send SOL</Text>
+  </TouchableOpacity>
+)}
                     </View>
                 )}
-
-
                 {/* Tokens */}
                 {tokens.length > 0 && (
                     <>
@@ -385,9 +388,8 @@ export default function WalletScreen() {
                         />
                     </>
                 )}
-
-
-            </ScrollView>
+                </ScrollView>
+            </KeyboardAvoidingView>
         </SafeAreaView>
     );
 }
@@ -633,4 +635,20 @@ const s = StyleSheet.create({
         fontFamily: "monospace",
         fontSize: 14,
     },
+    sendNav: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#14F195",
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 12,
+    marginTop: 20,
+    gap: 8,
+  },
+  sendNavText: {
+    color: "#0D0D12",
+    fontSize: 15,
+    fontWeight: "600",
+  },
 });

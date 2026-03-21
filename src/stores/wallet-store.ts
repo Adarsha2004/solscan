@@ -1,70 +1,66 @@
 import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
-import { asyncStorageAdapter } from "../lib/storage";
+import { persist, createJSONStorage } from "zustand/middleware";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// Define the shape of your state
+// define the shape of your state
 interface WalletState {
-  // Data
-  favorites: string[];          // saved wallet addresses
-  searchHistory: string[];      // recently searched addresses
-  isDevnet: boolean;            // devnet vs mainnet toggle
+  // data
+  favorites: string[];
+  searchHistory: string[];
+  isDevnet: boolean;
+  connectedPublicKey: string | null;
 
-  // Actions
+  // actions
   addFavorite: (address: string) => void;
   removeFavorite: (address: string) => void;
   isFavorite: (address: string) => boolean;
   addToHistory: (address: string) => void;
   clearHistory: () => void;
   toggleNetwork: () => void;
+  setConnectedPublicKey: (publicKey: string | null) => void;
 }
 
-
-// create is used to make a "store" 
-// A store is essentially a container that holds your global varaible and actions(functions that modify state)
-// set are used to update the state
-// get are used to get the state
 export const useWalletStore = create<WalletState>()(
   persist(
     (set, get) => ({
-      // Initial state
+      // initial state
       favorites: [],
       searchHistory: [],
       isDevnet: false,
+      connectedPublicKey: null,
 
-      // Actions — these modify the state
+      // actions
       addFavorite: (address) =>
-
-        // set gives accss to current state of all Data we have 
         set((state) => ({
-          favorites: state.favorites.includes(address) // checks if included or not
-            ? state.favorites // already exists, don't duplicate
-            : [address, ...state.favorites], // add new address to the front
+          favorites: state.favorites.includes(address)
+            ? state.favorites
+            : [address, ...state.favorites],
         })),
 
       removeFavorite: (address) =>
         set((state) => ({
-          favorites: state.favorites.filter((a) => a !== address), // filters the array and removes the address
+          favorites: state.favorites.filter((a) => a !== address),
         })),
 
-      // get used to retrive the entire current store object
       isFavorite: (address) => get().favorites.includes(address),
 
       addToHistory: (address) =>
         set((state) => ({
           searchHistory: [
             address,
-            // Remove duplicates — put the latest search first
             ...state.searchHistory.filter((a) => a !== address),
-          ].slice(0, 20), // Keep only last 20
+          ].slice(0, 20),
         })),
 
       clearHistory: () => set({ searchHistory: [] }),
 
-      toggleNetwork: () =>
-        set((state) => ({ isDevnet: !state.isDevnet })),
+      toggleNetwork: () => set((state) => ({ isDevnet: !state.isDevnet })),
+
+      setConnectedPublicKey: (publicKey) => set({ connectedPublicKey: publicKey }),
     }),
     {
       name: "wallet-storage",
-      storage: createJSONStorage(() => asyncStorageAdapter)
+      storage: createJSONStorage(() => AsyncStorage),
     }
-  ));
+  )
+);

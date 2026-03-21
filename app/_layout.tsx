@@ -12,6 +12,12 @@ export default function RootLayout() {
       <Stack screenOptions={{ headerShown: false }}>
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="token/[mint]" />
+        <Stack.Screen
+  name="send"
+  options={{
+    presentation: "modal",  // slides up from bottom like a sheet
+  }}
+/>
       </Stack>
     </SafeAreaProvider>
   );
