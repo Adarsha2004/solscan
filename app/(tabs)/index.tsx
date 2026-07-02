@@ -351,6 +351,7 @@ const s = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-start",
     marginBottom: 28,
+    overflow: "hidden",
   },
   headerRight: {
     flexDirection: "row",
@@ -358,7 +359,7 @@ const s = StyleSheet.create({
     gap: 8,
     flexWrap: "wrap",
     justifyContent: "flex-end",
-    maxWidth: 200,
+    flexShrink: 1,
   },
   title: {
     color: "#FFFFFF",

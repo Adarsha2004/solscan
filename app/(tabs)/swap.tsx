@@ -1,6 +1,6 @@
 // app/(tabs)/swap.tsx
 // swap screen with jupiter dex aggregator integration
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import {
   View,
   Text,
@@ -44,11 +44,15 @@ export default function SwapScreen() {
   const inputInfo = TOKEN_INFO[inputToken];
   const outputInfo = TOKEN_INFO[outputToken];
 
-  // fetch quote when input amount changes (debounced)
+  // fetch quote — throttled to refetch at most once per minute
+  const REFETCH_COOLDOWN_MS = 60_000; // 1 minute
+  const lastFetchRef = useRef(0);
+
   const fetchQuote = useCallback(async () => {
     if (!inputAmount || Number(inputAmount) <= 0) {
       setOutputAmount("");
       wallet.clearQuote();
+      lastFetchRef.current = 0;
       return;
     }
 
@@ -57,6 +61,13 @@ export default function SwapScreen() {
       wallet.clearQuote();
       return;
     }
+
+    // throttle: skip refetch within the cooldown window
+    const now = Date.now();
+    if (now - lastFetchRef.current < REFETCH_COOLDOWN_MS) {
+      return;
+    }
+    lastFetchRef.current = now;
 
     try {
       const quote = await wallet.fetchSwapQuote(
@@ -87,6 +98,7 @@ export default function SwapScreen() {
     setInputAmount(outputAmount);
     setOutputAmount("");
     wallet.clearQuote();
+    lastFetchRef.current = 0;
   };
 
   // token picker
@@ -106,6 +118,7 @@ export default function SwapScreen() {
     setPickerVisible(false);
     wallet.clearQuote();
     setOutputAmount("");
+    lastFetchRef.current = 0;
   };
 
   // execute swap

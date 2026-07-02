@@ -49,6 +49,8 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderRadius: 20,
     gap: 8,
+    flexShrink: 1,
+    overflow: "hidden",
   },
   disconnected: {
     backgroundColor: "#9945FF",
