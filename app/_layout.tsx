@@ -2,10 +2,12 @@ import "../src/polyfills";
 import { Stack } from "expo-router";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import "../src/polyfills";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function RootLayout() {
   return (
-    // safeareaprovider wrapes the enitre app to handle notch or safe area
+    <GestureHandlerRootView style={{ flex: 1 }}>
+    {/* safeareaprovider wrapes the enitre app to handle notch or safe area */}
     <SafeAreaProvider>
       {/* the root navigator is a Stack. This means screens pile on top of each other */}
       {/* The tabs group is the ase and token/[mint] appears on top of tabs grp */}
@@ -13,12 +15,13 @@ export default function RootLayout() {
         <Stack.Screen name="(tabs)" />
         <Stack.Screen name="token/[mint]" />
         <Stack.Screen
-  name="send"
-  options={{
-    presentation: "modal",  // slides up from bottom like a sheet
-  }}
-/>
+          name="send"
+          options={{
+            presentation: "modal", // slides up from bottom like a sheet
+          }}
+        />
       </Stack>
-    </SafeAreaProvider>
+      </SafeAreaProvider>
+    </GestureHandlerRootView>
   );
-} 
+}

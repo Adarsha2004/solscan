@@ -13,17 +13,18 @@ import {
   KeyboardAvoidingView,
   Platform,
 } from "react-native";
-import { useRouter } from "expo-router";
+import { useRouter, useLocalSearchParams } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useWallet } from "../src/hooks/useWallet";
 import { useWalletStore } from "../src/stores/wallet-store";
 
 export default function SendScreen() {
   const router = useRouter();
+  const { to } = useLocalSearchParams<{ to?: string }>();
   const wallet = useWallet();
   const isDevnet = useWalletStore((s) => s.isDevnet);
 
-  const [toAddress, setToAddress] = useState("");
+  const [toAddress, setToAddress] = useState(to ?? "");
   const [amount, setAmount] = useState("");
 
   const handleSend = async () => {

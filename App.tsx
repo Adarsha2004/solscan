@@ -1,12 +1,12 @@
 import WalletScreen from "./src/screens/WalletScreen";
 import { useState } from "react";
 import { SafeAreaProvider, SafeAreaView } from "react-native-safe-area-context";
-import {Ionicons} from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import SwapScreen from "./src/screens/SwapScreen";
 
-export default function App(){
-  const [activeTab,setActiveTab] = useState<"wallet" | "swap">("wallet");
+export default function App() {
+  const [activeTab, setActiveTab] = useState<"wallet" | "swap">("wallet");
   return (
     <SafeAreaProvider>
       <SafeAreaView style={s.safe}>
@@ -14,34 +14,38 @@ export default function App(){
 
         <View style={s.tabBar}>
           <TouchableOpacity
-          style={s.tab}
-          onPress={() => setActiveTab("wallet")}
+            style={s.tab}
+            onPress={() => setActiveTab("wallet")}
           >
             <Ionicons
-            name={activeTab === "wallet" ? "wallet" : "wallet-outline"}
-            size={24}
-            color={activeTab === "wallet" ? "#14F195" : "#6B7280"}
+              name={activeTab === "wallet" ? "wallet" : "wallet-outline"}
+              size={24}
+              color={activeTab === "wallet" ? "#14F195" : "#6B7280"}
             />
-            <Text style={[s.tabLabel,activeTab === "wallet" ? s.tabActive : {}]}>
+            <Text
+              style={[s.tabLabel, activeTab === "wallet" ? s.tabActive : {}]}
+            >
               Wallet
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity 
-          style={s.tab}
-          onPress={()=> setActiveTab("swap")}>
-            <Ionicons 
-            name={activeTab === "swap" ? "swap-horizontal" : "swap-horizontal-outline"}
-            size={24} 
-            color={activeTab === "swap" ? "#14F195" : "#6B7280"}
+          <TouchableOpacity style={s.tab} onPress={() => setActiveTab("swap")}>
+            <Ionicons
+              name={
+                activeTab === "swap"
+                  ? "swap-horizontal"
+                  : "swap-horizontal-outline"
+              }
+              size={24}
+              color={activeTab === "swap" ? "#14F195" : "#6B7280"}
             />
-            <Text style={[s.tabLabel,activeTab === "swap" ? s.tabActive : {}]}>
+            <Text style={[s.tabLabel, activeTab === "swap" ? s.tabActive : {}]}>
               Swap
             </Text>
           </TouchableOpacity>
         </View>
       </SafeAreaView>
     </SafeAreaProvider>
-  )
+  );
 }
 
 const s = StyleSheet.create({
