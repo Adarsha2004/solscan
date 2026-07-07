@@ -28,12 +28,10 @@
 ## Demo
 
 <p align="center">
-  <video src="./assets/solscan-demo.mp4" width="300" controls>
-    Your browser does not support the video tag.
-  </video>
+  <img src="./assets/solscan-demo.gif" alt="SolScan Demo" width="300" />
 </p>
 
-> **Watch the full demo above** — Search wallets, view token holdings, swap tokens via Jupiter, and more!
+> **📱 Watch the demo above** — Search wallets, view token holdings, swap tokens via Jupiter, and more!
 
 ---
 
