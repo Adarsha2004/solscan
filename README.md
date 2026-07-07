@@ -31,7 +31,7 @@
   <img src="./assets/solscan-demo.gif" alt="SolScan Demo" width="300" />
 </p>
 
-> **📱 Watch the demo above** — Search wallets, view token holdings, swap tokens via Jupiter, and more!
+> **Watch the demo above** — Search wallets, view token holdings, swap tokens via Jupiter, and more!
 
 ---
 
