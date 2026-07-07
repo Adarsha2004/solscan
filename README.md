@@ -27,11 +27,11 @@
 
 ## Demo
 
-<p align="center">
+<div align="center">
   <video src="https://github.com/user-attachments/assets/a5fb62ef-2866-406f-87f2-9c32bfe5dff9" width="300" controls>
     Your browser does not support the video tag.
   </video>
-</p>
+</div>
 
 > **📱 Watch the demo above** — Search wallets, view token holdings, swap tokens via Jupiter, and more!
 
