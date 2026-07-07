@@ -28,7 +28,7 @@
 ## Demo
 
 <p align="center">
-  <video src="./assets/solscan-demo-video.mp4" width="300" controls>
+  <video src="./assets/solscan-demo.mp4" width="300" controls>
     Your browser does not support the video tag.
   </video>
 </p>
@@ -223,15 +223,3 @@ Zustand store with AsyncStorage persistence keeps:
 - Search history (last 20 searches)
 - Network preference (Mainnet/Devnet)
 - Connected wallet public key
-
----
-
-## License
-
-This project is open source and available under the [MIT License](LICENSE).
-
----
-
-<p align="center">
-  Built with Solana
-</p>
