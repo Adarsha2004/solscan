@@ -28,10 +28,12 @@
 ## Demo
 
 <p align="center">
-  <img src="./assets/solscan-demo.gif" alt="SolScan Demo" width="300" />
+  <a href="https://adarsha2004.github.io/solscan/assets/solscan-demo-video.mp4">
+    <img src="https://img.shields.io/badge/▶_Watch_Demo-SolScan-9945FF?style=for-the-badge&logo=solana&logoColor=white" alt="Watch Demo" />
+  </a>
 </p>
 
-> **Watch the demo above** — Search wallets, view token holdings, swap tokens via Jupiter, and more!
+> **🎬 [Click here to watch the demo video](https://adarsha2004.github.io/solscan/assets/solscan-demo-video.mp4)** — Search wallets, view token holdings, swap tokens via Jupiter, and more!
 
 ---
 
