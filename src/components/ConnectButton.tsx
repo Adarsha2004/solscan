@@ -45,12 +45,11 @@ const styles = StyleSheet.create({
   button: {
     flexDirection: "row",
     alignItems: "center",
+    alignSelf: "flex-end",
     paddingHorizontal: 16,
     paddingVertical: 10,
     borderRadius: 20,
     gap: 8,
-    flexShrink: 1,
-    overflow: "hidden",
   },
   disconnected: {
     backgroundColor: "#9945FF",

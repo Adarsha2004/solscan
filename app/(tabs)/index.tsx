@@ -171,9 +171,9 @@ export default function WalletScreen() {
       >
         <ScrollView style={s.scroll}>
           <View style={s.header}>
-            <View>
+            <View style={s.headerLeft}>
               <Text style={s.title}>SolScan</Text>
-              <Text style={s.subtitle}>Explore any Solana wallet</Text>
+              <Text style={s.subtitle} numberOfLines={1}>Explore any Solana wallet</Text>
             </View>
             <View style={s.headerRight}>
               <TouchableOpacity style={s.networkToggle} onPress={toggleNetwork}>
@@ -351,15 +351,16 @@ const s = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "flex-start",
     marginBottom: 28,
-    overflow: "hidden",
+  },
+  headerLeft: {
+    flex: 1,
+    flexShrink: 1,
+    marginRight: 12,
   },
   headerRight: {
-    flexDirection: "row",
-    alignItems: "center",
+    alignItems: "flex-end",
     gap: 8,
-    flexWrap: "wrap",
-    justifyContent: "flex-end",
-    flexShrink: 1,
+    flexShrink: 0,
   },
   title: {
     color: "#FFFFFF",

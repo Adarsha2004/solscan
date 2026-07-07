@@ -7,6 +7,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   ScrollView,
+  Linking,
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -104,8 +105,7 @@ export default function TokenDetailScreen() {
       <TouchableOpacity
         style={styles.linkButton}
         onPress={() => {
-          // We'll add Linking.openURL later
-          // For now this is a placeholder
+          Linking.openURL(`https://solscan.io/token/${mint}`);
         }}
       >
         <Text style={styles.linkButtonText}>View on Solscan ↗</Text>
