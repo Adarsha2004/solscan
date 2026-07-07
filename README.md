@@ -33,7 +33,7 @@
   </video>
 </div>
 
-> **📱 Watch the demo above** — Search wallets, view token holdings, swap tokens via Jupiter, and more!
+> **Watch the demo above** — Search wallets, view token holdings, swap tokens via Jupiter, and more!
 
 ---
 
